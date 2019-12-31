@@ -1,0 +1,3 @@
+`requirements.txt` is used to `pip install` the necessary Python dependencies for this script. The virtual environment directory shall be named `ENV`. 
+
+After installing dependencies, packages will be zipped alongside the main lambda script (see [the official docs](https://docs.aws.amazon.com/lambda/latest/dg//lambda-python-how-to-create-deployment-package.html#python-package-dependencies)). The _zipped_ deployment package is the only file that gets actually deployed. 
