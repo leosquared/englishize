@@ -47,7 +47,7 @@ def lambda_handler(event, context):
 
 	# Main operations
 	bearer_token = twitter_app_auth()
-	status_id = event['tweet_id']
+	status_id = json.loads(event['body'])['tweet_id']
 	status_text = twitter_status_text(bearer_token, status_id)
 	
 	langs = ['en', 'es', 'bn', 'zh-TW', 'fa', 'ru', 'en']
@@ -55,7 +55,12 @@ def lambda_handler(event, context):
 	for i in range(len(langs)-1):
 		translation = translate(translation, langs[i], langs[i+1]).get('translatedText')
 
+	res_body = json.dumps({
+		'originalTweetText' : f'{status_text}',
+		'translatedText': f'{translation}'
+  })
+
 	return {
-      'originalTweetText' : f'{status_text}',
-      'translatedText': f'{translation}'
+		'statusCode': 200,
+		'body': res_body
   }
